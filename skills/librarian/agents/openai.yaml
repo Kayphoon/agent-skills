@@ -1,0 +1,7 @@
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "context7"
+      description: "Context7 library and API documentation"
+      transport: "streamable_http"
+      url: "https://mcp.context7.com/mcp"

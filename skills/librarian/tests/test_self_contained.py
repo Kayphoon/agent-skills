@@ -16,6 +16,7 @@ SKILL_ROOT = Path(__file__).resolve().parents[1]
 
 RUNTIME_FILES = (
     "SKILL.md",
+    "agents/openai.yaml",
     "references/role.md",
     "LICENSE.txt",
     "NOTICE.md",

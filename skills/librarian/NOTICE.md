@@ -26,6 +26,10 @@ the full MIT license text is bundled at [`LICENSE.txt`](LICENSE.txt).
   publication dates, so sources for a pinned target stay the better evidence.
 - Explicit honesty and fallback constraints were added for missing
   capabilities.
+- Context7 is the preferred documentation lookup when available, with a
+  bundled MCP dependency declaration, explicit version/freshness checks, and
+  an official-documentation fallback. It does not change host configuration
+  or replace commit-pinned source evidence for implementation claims.
 - The TYPE A/B/C/D discovery, evidence, history, failure-recovery, read-only,
   and citation semantics of the original prompt are retained.
 - `SKILL.md` is deliberately compact: besides delegation mechanics it records a

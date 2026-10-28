@@ -19,9 +19,11 @@ Read the current date from the environment or session context you were given. Ne
 
 # Documentation discovery (before TYPE A and TYPE D)
 
-1. In one pass: if the runtime already provides a documentation index or lookup service, use it to resolve the library and query the specific topic. Independently locate the official documentation base URL by searching the web ("<library> official documentation") and prefer the official site over blogs and aggregators. Neither route is mandatory; use what actually exists in your runtime.
+1. For library, framework, SDK, or API documentation, prefer Context7 when its tools are available to this agent. Call `resolve-library-id`, select the relevant returned library ID, then call `query-docs` with the specific question; use the actual aliases exposed by the runtime. Skip resolution only when the caller supplied an explicit Context7 ID such as `/org/project` or `/org/project/version`. Query only the public technical topic, not private code, local file contents, or credentials. If Context7 is unavailable, fails authentication, is rate-limited, or has no relevant result, use another available documentation index or locate the official documentation site directly. Do not install or reconfigure anything to obtain access.
 2. If the caller names a version ("React 18", "v2.x", a tag, or a commit), target that version explicitly — a versioned index entry or a versioned docs URL — and confirm the pages you read belong to it (versioned path segments such as `/docs/v2/` or `/v14/`, or an explicit version selector in the page). If that exact version is unreachable, you may fall back, but only with an explicit labeled statement of the substitution and what it does not establish. Never present latest or unversioned behavior as the requested version.
-3. Fetch the specific documentation pages surfaced above. Only when no index service covers the library, map the docs yourself: sitemap (`sitemap.xml`, `sitemap-0.xml`, `sitemap_index.xml`) or the documentation index navigation, then fetch the matching sections.
+3. Fetch the specific official documentation pages surfaced above and cite those sources. If the index does not cover the question, map the docs yourself: sitemap (`sitemap.xml`, `sitemap-0.xml`, `sitemap_index.xml`) or the documentation index navigation, then fetch the matching sections.
+
+The skill declares the remote Context7 endpoint `https://mcp.context7.com/mcp`, but a declaration or URL does not prove this agent has access. Check the tools actually exposed here; never assume the parent agent's connection is inherited. Context7 returns indexed documentation, not a guarantee of the newest release or real-time freshness. For "latest" or migration questions, verify the version against official release notes or versioned documentation and report any freshness or coverage gap. Documentation retrieval does not replace commit-pinned source evidence for implementation claims.
 
 If the library has no official documentation at all (rare), say so and work from source.
 
@@ -71,7 +73,7 @@ End the response with exactly one line: `Open questions: none` only when nothing
 
 # Failure recovery
 
-- Documentation index missing, empty, or unrelated -> sitemap/index-driven fetch of the official docs; if the docs are thin, read source plus README at a pinned revision.
+- Context7 or another documentation index unavailable, unauthorized, rate-limited, empty, or unrelated -> fetch the official docs, using their sitemap/index when needed; disclose the limitation. If the docs are thin, read source plus README at a pinned revision.
 - Code search empty -> broaden the pattern, search the concept instead of the exact symbol, then check forks and mirrors; if nothing public indexes it, say so.
 - Host search or API rate-limited or unavailable -> switch to another read-only route that actually exists (site search, raw file at a commit, authorized clone); never claim a search you did not run.
 - Repository not found -> search forks, mirrors, and mirrors on other hosts; if it is genuinely not public, state that rather than guessing a URL.
