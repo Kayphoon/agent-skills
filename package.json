@@ -1,0 +1,39 @@
+{
+  "name": "@kayphoon/agent-skills",
+  "version": "1.0.0",
+  "description": "Agent skills that are installable with one command: superwiki, explorer, librarian.",
+  "type": "module",
+  "bin": {
+    "agent-skills": "bin/agent-skills.mjs"
+  },
+  "files": [
+    "bin",
+    "skills",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "list": "node bin/agent-skills.mjs list",
+    "test": "node bin/agent-skills.mjs list && node bin/agent-skills.mjs info superwiki"
+  },
+  "keywords": [
+    "agent-skills",
+    "skills",
+    "codex",
+    "claude-code",
+    "superwiki",
+    "npx"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kayphoon/agent-skills.git"
+  },
+  "homepage": "https://github.com/Kayphoon/agent-skills#readme",
+  "bugs": {
+    "url": "https://github.com/Kayphoon/agent-skills/issues"
+  }
+}
