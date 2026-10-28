@@ -1,14 +1,16 @@
 {
   "name": "@kayphoon/agent-skills",
   "version": "1.0.0",
-  "description": "Agent skills that are installable with one command: superwiki, explorer, librarian.",
+  "description": "One-command native Codex agents with Context7, plus portable agent skills.",
   "type": "module",
   "bin": {
     "agent-skills": "bin/agent-skills.mjs"
   },
   "files": [
     "bin",
+    "codex",
     "skills",
+    "install-codex.sh",
     "README.md",
     "LICENSE"
   ],
@@ -17,7 +19,7 @@
   },
   "scripts": {
     "list": "node bin/agent-skills.mjs list",
-    "test": "node bin/agent-skills.mjs list && node bin/agent-skills.mjs info superwiki"
+    "test": "node --test tests/*.test.mjs && node bin/agent-skills.mjs list && node bin/agent-skills.mjs info superwiki"
   },
   "keywords": [
     "agent-skills",

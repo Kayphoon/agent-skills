@@ -5,6 +5,7 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, sym
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { homedir } from 'node:os';
+import { runCodexInstaller } from './install-codex.mjs';
 
 const PKG_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SKILLS_DIR = join(PKG_ROOT, 'skills');
@@ -277,6 +278,7 @@ Usage:
   npx github:Kayphoon/agent-skills <command> [options]
 
 Commands:
+  codex install [options]        Install native Codex agents and Context7
   list [--json]                  List bundled skills and install status
   info <skill>                   Show description, path, size, install status
   install [skill...] [options]   Install skills (default: all)
@@ -319,4 +321,9 @@ function main() {
   else fail(`unknown command "${command}" (try --help)`);
 }
 
-main();
+try {
+  if (process.argv[2] === 'codex') runCodexInstaller(process.argv.slice(3));
+  else main();
+} catch (error) {
+  fail(error.message);
+}
