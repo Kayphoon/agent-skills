@@ -297,14 +297,14 @@ function runShellWithFakeNpx(t, args) {
 
 test('shell entry selects the complete GitHub package and native Codex install command', (t) => {
   assert.deepEqual(runShellWithFakeNpx(t, []), [
-    '--yes', '--package=github:Kayphoon/agent-skills', 'agent-skills', 'codex', 'install',
+    '--yes', '--package=https://codeload.github.com/Kayphoon/agent-skills/tar.gz/refs/heads/main', 'agent-skills', 'codex', 'install',
   ]);
 });
 
 test('shell entry forwards model with spaces and dry-run as literal arguments', (t) => {
   const args = ['--model', 'model with spaces and $literal', '--dry-run', '--effort', 'low'];
   assert.deepEqual(runShellWithFakeNpx(t, args), [
-    '--yes', '--package=github:Kayphoon/agent-skills', 'agent-skills', 'codex', 'install', ...args,
+    '--yes', '--package=https://codeload.github.com/Kayphoon/agent-skills/tar.gz/refs/heads/main', 'agent-skills', 'codex', 'install', ...args,
   ]);
 });
 

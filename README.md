@@ -4,16 +4,16 @@ Codex 原生搜索子代理的一键安装包，同时保留 `superwiki`、`expl
 
 ## Codex 原生 agent（一键安装）
 
-需要 Node.js 18+、npm，以及已经安装的 Codex CLI。在终端执行：
-
-```bash
-npx --yes github:Kayphoon/agent-skills codex install
-```
-
-也可以使用仓库提供的 macOS / Linux 安装脚本，效果相同：
+需要 Node.js 18+、npm，以及已经安装的 Codex CLI。macOS / Linux 在终端执行：
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/Kayphoon/agent-skills/main/install-codex.sh | sh
+```
+
+也可以直接使用 npm，效果相同。两种入口都下载 GitHub 源码压缩包，无需 Git 克隆：
+
+```bash
+npx --yes https://codeload.github.com/Kayphoon/agent-skills/tar.gz/refs/heads/main codex install
 ```
 
 安装器把两个自包含 TOML 放入 `~/.codex/agents/`；设置了 `CODEX_HOME` 时使用该目录。角色正文直接存入 `developer_instructions`，Codex 按名称发现并调用，无需先加载 skill 或在每次派发时粘贴角色全文。
@@ -26,7 +26,7 @@ curl -fsSL https://raw.githubusercontent.com/Kayphoon/agent-skills/main/install-
 默认模型需要你的现有 provider 支持。安装器不添加 provider 或凭据；可以安装时显式指定本机可用的模型和推理档位，agent 名称保持不变：
 
 ```bash
-npx --yes github:Kayphoon/agent-skills codex install --model gpt-6-luna --effort high
+curl -fsSL https://raw.githubusercontent.com/Kayphoon/agent-skills/main/install-codex.sh | sh -s -- --model gpt-6-luna --effort high
 ```
 
 Context7 通过 `codex mcp add context7 --url https://mcp.context7.com/mcp` 注册到父会话，再由子代理继承。已有同名连接会完整保留，包括鉴权、地址和启用状态；已有但关闭的连接会提示你在 Codex 中启用。需要鉴权时请在 Codex 的 MCP 设置中完成连接；索引更新时间不代表文档绝对实时。
@@ -44,13 +44,13 @@ Context7 通过 `codex mcp add context7 --url https://mcp.context7.com/mcp` 注�
 
 ```bash
 # 预览目标和计划；不改目标文件
-npx --yes github:Kayphoon/agent-skills codex install --dry-run
+curl -fsSL https://raw.githubusercontent.com/Kayphoon/agent-skills/main/install-codex.sh | sh -s -- --dry-run
 
 # 更新 agent 文件，先备份旧文件
-npx --yes github:Kayphoon/agent-skills codex install --force
+curl -fsSL https://raw.githubusercontent.com/Kayphoon/agent-skills/main/install-codex.sh | sh -s -- --force
 
 # 只装 TOML；适用于暂时没有 Codex CLI 或自行管理 MCP 的环境
-npx --yes github:Kayphoon/agent-skills codex install --skip-context7
+curl -fsSL https://raw.githubusercontent.com/Kayphoon/agent-skills/main/install-codex.sh | sh -s -- --skip-context7
 ```
 
 如果之前装过 `explorer` / `librarian` skills，改用原生 agent 后可在 Codex 的 skills 设置中禁用这两个旧入口，避免重复路由。安装器不会删除它们，其他运行时仍可使用。

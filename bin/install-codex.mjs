@@ -170,7 +170,7 @@ export function installCodexAgents(opts = {}, runtime = {}) {
 }
 
 const USAGE = `Install native Codex agents and Context7:
-  npx --yes github:Kayphoon/agent-skills codex install [options]
+  curl -fsSL https://raw.githubusercontent.com/Kayphoon/agent-skills/main/install-codex.sh | sh -s -- [options]
 
 Options:
   --model <id>       Set both agents' model (default: deepseek-flash)
