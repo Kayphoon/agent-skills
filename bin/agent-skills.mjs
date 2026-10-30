@@ -278,7 +278,7 @@ Usage:
   npx github:Kayphoon/agent-skills <command> [options]
 
 Commands:
-  codex install [options]        Install native Codex agents and Context7
+  codex install [options]        Compatibility bridge to codex-flash-agents
   list [--json]                  List bundled skills and install status
   info <skill>                   Show description, path, size, install status
   install [skill...] [options]   Install skills (default: all)
@@ -297,7 +297,9 @@ Examples:
   npx @kayphoon/agent-skills install
   npx @kayphoon/agent-skills install superwiki --target codex
   npx @kayphoon/agent-skills install explorer librarian --project ./my-repo
-  npx @kayphoon/agent-skills list --json`);
+  npx @kayphoon/agent-skills list --json
+
+Native Codex agents: https://github.com/Kayphoon/codex-flash-agents`);
 }
 
 function main() {

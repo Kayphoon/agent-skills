@@ -1,14 +1,13 @@
 {
   "name": "@kayphoon/agent-skills",
   "version": "1.0.0",
-  "description": "One-command native Codex agents with Context7, plus portable agent skills.",
+  "description": "Portable agent skills for project knowledge, local code exploration, and external research.",
   "type": "module",
   "bin": {
     "agent-skills": "bin/agent-skills.mjs"
   },
   "files": [
     "bin",
-    "codex",
     "skills",
     "install-codex.sh",
     "README.md",

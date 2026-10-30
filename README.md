@@ -1,63 +1,18 @@
 # agent-skills
 
-Codex 原生搜索子代理的一键安装包，同时保留 `superwiki`、`explorer`、`librarian` 三个跨运行时 skill。
+跨运行时的通用 skills 仓库，包含 `superwiki`、`explorer`、`librarian`。每个 skill 都是遵循 [Agent Skills 规范](https://agentskills.io) 的自包含目录（`SKILL.md` + 支持文件）。
 
-## Codex 原生 agent（一键安装）
+## Codex 原生 agents 已迁移
 
-需要 Node.js 18+、npm，以及已经安装的 Codex CLI。macOS / Linux 在终端执行：
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/Kayphoon/agent-skills/main/install-codex.sh | sh
-```
-
-也可以直接使用 npm，效果相同。两种入口都下载 GitHub 源码压缩包，无需 Git 克隆：
+原生 Codex Flash agents、安装器实现和相关说明已独立到 [Kayphoon/codex-flash-agents](https://github.com/Kayphoon/codex-flash-agents)。新安装请使用独立仓库的入口：
 
 ```bash
-npx --yes https://codeload.github.com/Kayphoon/agent-skills/tar.gz/refs/heads/main codex install
+curl -fsSL https://raw.githubusercontent.com/Kayphoon/codex-flash-agents/main/install.sh | sh
 ```
 
-安装器把两个自包含 TOML 放入 `~/.codex/agents/`；设置了 `CODEX_HOME` 时使用该目录。角色正文直接存入 `developer_instructions`，Codex 按名称发现并调用，无需先加载 skill 或在每次派发时粘贴角色全文。
+本仓库不再包含原生 agent TOML。旧 `install-codex.sh` 和 `agent-skills codex install` 仅作为兼容桥，提示迁移后转交独立仓库安装器；安装参数和失败退出码会保留。此变更不影响下面的通用 skills。
 
-| 原生 agent | 工作范围 | 默认模型 / 推理档位 |
-|---|---|---|
-| `flash_explorer` | 本地代码只读检索、符号和调用链定位，返回绝对路径与证据 | `deepseek-flash` / `low` |
-| `flash_librarian` | 外部库和 API 资料研究，优先 Context7，文档附官方链接、源码固定到 commit | `deepseek-flash` / `low` |
-
-默认模型需要你的现有 provider 支持。安装器不添加 provider 或凭据；可以安装时显式指定本机可用的模型和推理档位，agent 名称保持不变：
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/Kayphoon/agent-skills/main/install-codex.sh | sh -s -- --model gpt-6-luna --effort high
-```
-
-Context7 通过 `codex mcp add context7 --url https://mcp.context7.com/mcp` 注册到父会话，再由子代理继承。已有同名连接会完整保留，包括鉴权、地址和启用状态；已有但关闭的连接会提示你在 Codex 中启用。需要鉴权时请在 Codex 的 MCP 设置中完成连接；索引更新时间不代表文档绝对实时。
-
-原生 agent 的模型和推理档位由 TOML 固定，权限、provider 与 MCP 来自父会话。只读属于角色行为约束，不会产生额外的只读沙箱。这些规则依据 [Codex 官方子代理文档](https://learn.chatgpt.com/docs/agent-configuration/subagents) 和 [MCP 文档](https://learn.chatgpt.com/docs/extend/mcp)。
-
-安装完成后新开 Codex 会话，例如：
-
-```text
-用 flash_explorer 找出这个项目的认证入口和调用链。
-用 flash_librarian 核对当前项目版本对应的官方 API 文档。
-```
-
-不同内容的既有 agent 文件默认保留，重复运行不会重复添加 MCP。需要升级或替换模型时使用 `--force`，它会先在原文件旁保存 `.backup-<id>` 副本。新增 Context7 前也会备份已有 `config.toml`。许可和来源声明安装到 `~/.codex/agent-skills-notices/`。
-
-```bash
-# 预览目标和计划；不改目标文件
-curl -fsSL https://raw.githubusercontent.com/Kayphoon/agent-skills/main/install-codex.sh | sh -s -- --dry-run
-
-# 更新 agent 文件，先备份旧文件
-curl -fsSL https://raw.githubusercontent.com/Kayphoon/agent-skills/main/install-codex.sh | sh -s -- --force
-
-# 只装 TOML；适用于暂时没有 Codex CLI 或自行管理 MCP 的环境
-curl -fsSL https://raw.githubusercontent.com/Kayphoon/agent-skills/main/install-codex.sh | sh -s -- --skip-context7
-```
-
-如果之前装过 `explorer` / `librarian` skills，改用原生 agent 后可在 Codex 的 skills 设置中禁用这两个旧入口，避免重复路由。安装器不会删除它们，其他运行时仍可使用。
-
-## 通用 skills
-
-每个 skill 都是一个自包含目录（`SKILL.md` + 支持文件），遵循 [Agent Skills 规范](https://agentskills.io)。下面的命令安装 skills；Codex 搜索子代理推荐使用上面的 `codex install`。
+兼容桥每次使用独立的临时 npm 缓存，结束后清理，避免固定 `main` 下载地址复用旧包。
 
 ## 包含的 skill
 
@@ -143,4 +98,4 @@ superwiki-init --codex /path/to/project
 
 ## 许可证
 
-本仓库的安装器与文档以 MIT 许可发布，见 [LICENSE](LICENSE)。`explorer`、`librarian` 及原生 agent 内容改编自 [oh-my-openagent](https://github.com/code-yeongyu/oh-my-openagent)，其 MIT 许可与第三方声明随 skill 目录和 [codex/](codex/NOTICE.md) 保留。
+本仓库的安装器与文档以 MIT 许可发布，见 [LICENSE](LICENSE)。`explorer`、`librarian` 内容改编自 [oh-my-openagent](https://github.com/code-yeongyu/oh-my-openagent)，其 MIT 许可与第三方声明随各自 skill 目录保留。
